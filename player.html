@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plyr Video Player</title>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #000;
+        }
+        .plyr {
+            width: 100%;
+            max-width: 800px; /* Adjust based on your needs */
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+<video id="player" class="plyr" controls crossorigin>
+    <source id="video-source" src="" type="application/x-mpegURL">
+</video>
+
+<script src="https://cdn.plyr.io/3.6.8/plyr.polyfilled.js"></script>
+<script>
+    // Initialize Plyr
+    const player = new Plyr('#player');
+
+    // Function to load the video URL
+    function loadVideo() {
+        // Get the video URL from the hash
+        const hash = window.location.hash.substr(1);
+        const videoUrl = decodeURIComponent(hash);
+
+        // Check if the URL is valid
+        if (videoUrl) {
+            document.getElementById('video-source').src = videoUrl;
+
+            // Load the new source into the player
+            player.source = {
+                type: 'video',
+                sources: [
+                    {
+                        src: videoUrl,
+                        type: 'video/m3u8', // Ensure this matches your stream type
+                    },
+                ],
+            };
+
+            // Load the video
+            player.load();
+        } else {
+            console.error('No valid video URL found in the hash.');
+        }
+    }
+
+    // Load video on page load
+    window.addEventListener('load', loadVideo);
+</script>
+
+</body>
+</html>
