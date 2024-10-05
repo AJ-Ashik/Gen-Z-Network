@@ -16,22 +16,16 @@
             color: white;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Align items to the top */
+            align-items: flex-start;
             min-height: 100vh;
             flex-direction: column;
-            padding-top: 20px; /* Added padding for top space */
+            padding-top: 20px;
         }
 
         @keyframes gradientAnimation {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .container {
@@ -45,45 +39,45 @@
             top: 0;
             left: 0;
             right: 0;
-            background-color: #2c2c2c; /* Changed to a solid color for contrast */
+            background-color: #2c2c2c;
             padding: 10px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            border-bottom: 2px solid #00aaff; /* Added bottom border */
+            border-bottom: 2px solid #00aaff;
         }
 
         .logo {
             font-size: 2rem;
             font-weight: bold;
-            background: linear-gradient(45deg, #00aaff, #ff007f); /* Adjusted gradient colors for better visibility */
+            background: linear-gradient(45deg, #00aaff, #ff007f);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            display: inline-block; /* Ensures the logo displays correctly */
+            display: inline-block;
         }
 
         .help-button {
-            background-color: #00aaff; /* Updated background color */
+            background-color: #00aaff;
             color: white;
             border: none;
             padding: 10px 15px;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            font-size: 16px; /* Font size adjusted for better visibility */
+            font-size: 16px;
         }
 
         .help-button:hover {
-            background-color: #007bb5; /* Darker shade on hover */
+            background-color: #007bb5;
         }
 
         .iframe-container {
             position: sticky;
             top: 0;
             width: 100%;
-            padding-top: 58%; /* 16:9 Aspect Ratio */
-            margin-top: 40px; /* Increased margin for header space */
+            padding-top: 58%;
+            margin-top: 60px; /* Increased margin for header space */
             border: 1px solid #00aaff;
             border-radius: 10px;
             overflow: hidden;
@@ -134,23 +128,13 @@
         }
 
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 24px;
-            }
-
-            .channel h3 {
-                font-size: 14px;
-            }
+            header h1 { font-size: 24px; }
+            .channel h3 { font-size: 14px; }
         }
 
         @media (max-width: 480px) {
-            header h1 {
-                font-size: 20px;
-            }
-
-            .channel h3 {
-                font-size: 12px;
-            }
+            header h1 { font-size: 20px; }
+            .channel h3 { font-size: 12px; }
         }
     </style>
 </head>
@@ -199,8 +183,11 @@
     <script>
         // Function to change the iframe source
         function changeIframeSource(url) {
-            // Update the iframe source to player.html with the video URL as a hash
-            document.getElementById('match-iframe').src = 'player.html#' + encodeURIComponent(url);
+            const iframe = document.getElementById('match-iframe');
+            // Check if the URL is valid and update the iframe source
+            if (url) {
+                iframe.src = 'player.html#' + encodeURIComponent(url);
+            }
         }
     </script>
 </body>
