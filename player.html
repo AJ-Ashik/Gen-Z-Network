@@ -25,7 +25,7 @@
 <body>
 
 <video id="player" class="plyr" controls crossorigin>
-    <source id="video-source" src="" type="application/x-mpegURL">
+    <source id="video-source" src="http://217.20.112.199/starjalshahd/index.m3u8" type="application/x-mpegURL">
 </video>
 
 <script src="https://cdn.plyr.io/3.6.8/plyr.polyfilled.js"></script>
@@ -37,10 +37,12 @@
     function loadVideo() {
         // Get the video URL from the hash
         const hash = window.location.hash.substr(1);
+        console.log('Hash:', hash);  // Log the hash to the console
         const videoUrl = decodeURIComponent(hash);
 
         // Check if the URL is valid
         if (videoUrl) {
+            console.log('Decoded Video URL:', videoUrl); // Log the decoded URL
             document.getElementById('video-source').src = videoUrl;
 
             // Load the new source into the player
@@ -49,7 +51,7 @@
                 sources: [
                     {
                         src: videoUrl,
-                        type: 'video/m3u8', // Ensure this matches your stream type
+                        type: 'application/x-mpegURL', // Ensure this matches your stream type
                     },
                 ],
             };
