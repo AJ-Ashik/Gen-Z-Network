@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Xtream Live TV</title>
+    
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin-bottom: 20px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px 0;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #218838;
+        }
+        .channel-list {
+            margin-top: 20px;
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .channel {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .channel:last-child {
+            border-bottom: none;
+        }
+        .channel img {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .channel-details {
+            flex: 1;
+        }
+        .channel-name {
+            font-weight: bold;
+            color: #007bff;
+            font-size: 1.2em;
+        }
+        .channel-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            max-width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .hidden {
+            display: none;
+        }
+        
+        .stats {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .stats p {
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Admin Panel</h1>
+
+<div id="login-container" class="login-container">
+    <h2>Admin Login</h2>
+    <form id="login-form">
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+</div>
+
+
+
+			
+			
+			
+			
+<div id="admin-container" class="hidden">
+	<div class="stats">
+    <h2>Website Stats</h2>
+    <p>Total Visits: <span id="total-visits">Loading...</span></p>
+    <p>Online Users: <span id="online-users">Loading...</span></p>
+</div>
+    <form id="channel-form">
+        <input type="hidden" id="edit-channel-name">
+        <input type="text" id="channel-name" placeholder="Channel Name" required>
+        <input type="text" id="image-url" placeholder="Image URL" required>
+        <input type="text" id="channel-url" placeholder="Channel URL" required>
+        <button type="submit">Add/Update Channel</button>
+    </form>
+
+    <div class="channel-list" id="channel-list">
+        <h2>Channels</h2>
+       
+    </div>
+    <br></br>
+    <button id="logout-btn">Logout</button>
+</div>
+
+<script type="module" src="admin.js"></script>
+
+</body>
+</html>
