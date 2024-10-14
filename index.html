@@ -1,175 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xtream Net </title>
+    <title>StreamHub Live</title>
     
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self';">
+    	
+    <script disable-devtool-auto src='https://cdn.jsdelivr.net/npm/disable-devtool'></script>
+    <script disable-devtool-auto src='https://cdn.jsdelivr.net/npm/disable-devtool'></script>
+    <script disable-devtool-auto src='https://cdn.jsdelivr.net/npm/disable-devtool'></script>
     <style>
+        /* Add your existing CSS styles here */
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e1e2f, #292941);
+            color: #f1f1f1;
             margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        ul {
+            list-style-type: none;
             padding: 0;
-            background: linear-gradient(45deg, #0e0e0e, #1c1c1c, #3e3e3e, #5a5a5a);
-            background-size: 400% 400%;
-            animation: gradientAnimation 15s ease infinite;
-            color: white;
+            margin-bottom: 40px;
+        }
+
+        li {
+            margin-bottom: 10px;
             display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            flex-direction: column;
-            padding-top: 20px;
+            align-items: center;
         }
 
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        a {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #1f1f3f;
+            color: #f1f1f1;
+            text-decoration: none;
+            border-radius: 10px;
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+            margin-top: 15px;
+            width: 100%;
         }
 
-        .container {
-            width: 95%;
-            max-width: 900px;
-            padding: 10px;
+        a:hover {
+            background-color: #292b63;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        #videoPlayer {
+            margin-top: 20px;
+            text-align: center;
+            border-radius: 10px;
             position: relative;
-            z-index: 1;
+        }
+
+        iframe {
+            border: none;
+            max-width: 100%;
+            height: 600px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+        }
+
+        .preloader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+
+        .preloader div {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #fff;
+            border-top: 4px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(44, 44, 44, 0.8);
-            padding: 10px 20px;
+            background-color: #292941;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-container {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            z-index: 1000;
-            border-bottom: 2px solid #00aaff;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            justify-content: center;
+        }
+
+        .logo-image {
+            max-width: 50px;
+            margin-right: 6px;
         }
 
         .logo {
-            font-size: 2rem;
+            font-size: 26px;
             font-weight: bold;
-            background: linear-gradient(45deg, #00aaff, #ff007f);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
+            color: #ffffff;
         }
 
-        .help-button {
-            background-color: #00aaff;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            font-size: 16px;
-        }
-
-        .help-button:hover {
-            background-color: #007bb5;
-            transform: translateY(-2px);
-        }
-
-        .video-container {
-            margin-top: 80px; /* Space for header */
-            border: 1px solid #00aaff;
-            border-radius: 10px;
-            overflow: hidden;
-            background-color: rgba(44, 44, 44, 0.9);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-        }
-
-        video {
-            width: 100%;
-            height: auto;
-            border-radius: 5px;
-        }
-
-        .channel-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-            max-height: 300px;
-            overflow-y: auto; /* Enable scrolling */
-            padding: 10px; /* Add some padding for better appearance */
-            background-color: rgba(44, 44, 44, 0.9); /* Background for the grid */
-            border-radius: 10px; /* Round the corners */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Add shadow */
-        }
-
-        .channel {
+        footer {
+            background-color: #292941;
+            color: #f1f1f1;
             text-align: center;
-            background-color: #2c2c2c;
+            padding: 20px;
+            font-size: 14px;
+            margin-top: 40px;
             border-radius: 10px;
-            padding: 15px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
-        .channel img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            transition: transform 0.3s ease;
-        }
-
-        .channel h3 {
-            margin: 10px 0;
-            font-size: 16px;
-            color: #fff700;
-        }
-
-        .channel:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
-        }
-
-        .channel:hover img {
-            transform: scale(1.05);
+        marquee {
+            font-size: 20px;
+            color: #ffcc00;
+            margin-bottom: 20px;
         }
 
         @media (max-width: 768px) {
-            header h1 { font-size: 24px; }
-            .channel h3 { font-size: 14px; }
+            iframe {
+                height: 200px;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            a {
+                font-size: 14px;
+            }
         }
 
-        @media (max-width: 480px) {
-            header h1 { font-size: 20px; }
-            .channel h3 { font-size: 12px; }
+        .channel-image {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+            border-radius: 5px;
         }
     </style>
+    <script disable-devtool-auto src='https://cdn.jsdelivr.net/npm/disable-devtool'></script>
+    <script disable-devtool-auto src='https://cdn.jsdelivr.net/npm/disable-devtool'></script>
+    <script type="module">
+    const _0x27edb3=_0x5072;(function(_0x2c683c,_0x1e452d){const _0x15d2c8=_0x5072,_0x5c38a1=_0x2c683c();while(!![]){try{const _0x4db976=parseInt(_0x15d2c8(0x13d))/0x1*(-parseInt(_0x15d2c8(0x11e))/0x2)+-parseInt(_0x15d2c8(0x13b))/0x3+-parseInt(_0x15d2c8(0xf0))/0x4+-parseInt(_0x15d2c8(0x141))/0x5+-parseInt(_0x15d2c8(0xf9))/0x6*(-parseInt(_0x15d2c8(0x130))/0x7)+parseInt(_0x15d2c8(0x13e))/0x8+parseInt(_0x15d2c8(0x115))/0x9*(parseInt(_0x15d2c8(0x12e))/0xa);if(_0x4db976===_0x1e452d)break;else _0x5c38a1['push'](_0x5c38a1['shift']());}catch(_0x3e7d7f){_0x5c38a1['push'](_0x5c38a1['shift']());}}}(_0x2856,0x5e6cd));import{initializeApp}from'https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js';function _0x5072(_0x310a84,_0x3d248f){const _0x1a6dd3=_0x2856();return _0x5072=function(_0x4404ea,_0x19f85f){_0x4404ea=_0x4404ea-0xef;let _0x6dfc79=_0x1a6dd3[_0x4404ea];return _0x6dfc79;},_0x5072(_0x310a84,_0x3d248f);}function _0x2856(){const _0x32ffcc=['[cswCrwYLeeCxyAhOHHRYCvrpBzcNO]','setAttribute','debu','111701481057','6NBOxsn','preventDefault','channelList','Developer\x20Tools\x20detected.\x20Please\x20close\x20DevTools\x20to\x20continue.','stateObject','DOMContentLoaded','while\x20(true)\x20{}','selectstart','true','streamhub-database-2.firebaseapp.com','[IhRuXVbMqXJXbUOGVoXNhNkSjwMbHhhTiXdbVQwjjfXUZkCXwug]','location','test','input','RequestFileSystem','streamMatch','toString','Incognito\x20Mode\x20detected.\x20Please\x20disable\x20it\x20to\x20access\x20the\x20site.','AIzaSyBYPrsAIdQ-NTm2_xEgFqNORUmnuSDQgXQ','xtrIhRuXVbMeaqmXJXbnUet.vOGercVel.oXaNpphNkSjwMbHhhTiXdbVQwjjfXUZkCXwug','action','getElementById','https://streamhub-database-2-default-rtdb.firebaseio.com','innerHTML','\x22\x20class=\x22channel-image\x22>\x20','\x27)\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<img\x20src=\x22','Copying\x20is\x20not\x20allowed\x20on\x20this\x20site.','function\x20*\x5c(\x20*\x5c)','1378449JsLJzp','onload','none','iframe','ctrlKey','gger','contextmenu','Unauthorized\x20use\x20detected.\x20This\x20code\x20can\x20only\x20run\x20on\x20the\x20official\x20domain.','block','2WZrMbb','string','channels','replace','chain','copy','call','addEventListener','table','acbouswCrt:wYblLeaeCnxyAkhOHHRYCvrpBzcNO','streamhub-database-2.appspot.com','charCodeAt','shiftKey','fromCharCode','onkeydown','keyCode','80hWOVEt','1:111701481057:web:c722fad6b123636c60bc20','1308986DkTAhP','console','allowfullscreen','hostname','about:blank','href','\x22\x20alt=\x22','appendChild','createElement','apply','innerText','230100FnCevJ','search','714427gQVCpL','1630816UXbXKf','display','webkitRequestFileSystem','1437195uPuMNY','split','style','indexOf','(((.+)+)+)+$','xtream-hub.netlify.app','marqueeText','logo','init','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</a>','603228VzumMo','constructor','\x5c+\x5c+\x20*(?:[a-zA-Z_$][0-9a-zA-Z_$]*)','length','val'];_0x2856=function(){return _0x32ffcc;};return _0x2856();}import{getDatabase,ref,onValue}from'https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js';const firebaseConfig={'apiKey':_0x27edb3(0x10b),'authDomain':_0x27edb3(0x102),'databaseURL':_0x27edb3(0x10f),'projectId':'streamhub-database-2','storageBucket':_0x27edb3(0x128),'messagingSenderId':_0x27edb3(0xf8),'appId':_0x27edb3(0x12f),'measurementId':'G-RTBGSY68DS'},app=initializeApp(firebaseConfig),database=getDatabase(app);document['addEventListener'](_0x27edb3(0xfe),function(){const _0x5147c2=_0x27edb3,_0x10d6b2=document[_0x5147c2(0x10e)](_0x5147c2(0x147)),_0x3c2ed2=document[_0x5147c2(0x10e)](_0x5147c2(0xfb)),_0x6623d0=ref(database,_0x5147c2(0x147));onValue(_0x6623d0,_0x53a76a=>{const _0x4b2ee7=_0x5147c2,_0x594313=_0x53a76a['val']();_0x10d6b2[_0x4b2ee7(0x13a)]=_0x594313;});const _0x6b7965=ref(database,_0x5147c2(0x120));onValue(_0x6b7965,_0x3a1967=>{const _0x28b7f0=_0x5147c2,_0x29e905=_0x3a1967[_0x28b7f0(0xf4)]();_0x3c2ed2['innerHTML']='';for(let _0x64224d in _0x29e905){const _0x1b8742=_0x29e905[_0x64224d],_0x22966c=document[_0x28b7f0(0x138)]('li');_0x22966c[_0x28b7f0(0x110)]='<a\x20href=\x22javascript:void(0)\x22\x20onclick=\x22streamMatch(\x27'+_0x1b8742['link']+_0x28b7f0(0x112)+_0x1b8742[_0x28b7f0(0x148)]+_0x28b7f0(0x136)+_0x1b8742['name']+_0x28b7f0(0x111)+_0x1b8742['name']+_0x28b7f0(0xef),_0x3c2ed2['appendChild'](_0x22966c);}});}),window[_0x27edb3(0x108)]=function(_0x271ab9){const _0x49a050=_0x27edb3,_0x2812ce=document[_0x49a050(0x10e)]('videoPlayer'),_0x94c4cd=document[_0x49a050(0x10e)]('preloader');_0x2812ce['innerHTML']='',_0x94c4cd[_0x49a050(0x143)]['display']=_0x49a050(0x11d);const _0x365a76=document[_0x49a050(0x138)](_0x49a050(0x118));_0x365a76['src']=_0x271ab9,_0x365a76[_0x49a050(0xf6)](_0x49a050(0x132),_0x49a050(0x101)),_0x365a76[_0x49a050(0x116)]=function(){const _0x6605d3=_0x49a050;_0x94c4cd[_0x6605d3(0x143)][_0x6605d3(0x13f)]=_0x6605d3(0x117);},_0x2812ce[_0x49a050(0x137)](_0x365a76);},document[_0x27edb3(0x125)](_0x27edb3(0x100),function(_0x19ab3d){const _0x1653f2=_0x27edb3;_0x19ab3d[_0x1653f2(0xfa)]();}),document['addEventListener'](_0x27edb3(0x123),function(_0x3a17f7){const _0x496123=_0x27edb3;_0x3a17f7[_0x496123(0xfa)](),alert(_0x496123(0x113));}),document[_0x27edb3(0x12c)]=function(_0x19a021){const _0x4b483e=_0x27edb3;if(_0x19a021['ctrlKey']&&_0x19a021[_0x4b483e(0x12d)]==0x55)return![];},(function(){const _0xe22f92=_0x27edb3,_0x6ffa72=(function(){let _0x4c23f3=!![];return function(_0xb59ff9,_0x4cf917){const _0x272f2d=_0x4c23f3?function(){const _0x481c8e=_0x5072;if(_0x4cf917){const _0x27cc59=_0x4cf917[_0x481c8e(0x139)](_0xb59ff9,arguments);return _0x4cf917=null,_0x27cc59;}}:function(){};return _0x4c23f3=![],_0x272f2d;};}()),_0x3e8c39=_0x6ffa72(this,function(){const _0x4e1287=_0x5072;return _0x3e8c39[_0x4e1287(0x109)]()[_0x4e1287(0x13c)](_0x4e1287(0x145))[_0x4e1287(0x109)]()[_0x4e1287(0xf1)](_0x3e8c39)[_0x4e1287(0x13c)](_0x4e1287(0x145));});_0x3e8c39();const _0x38ce7f=(function(){let _0x4e2682=!![];return function(_0x3441df,_0x5cd3ad){const _0x495374=_0x4e2682?function(){if(_0x5cd3ad){const _0x3329fe=_0x5cd3ad['apply'](_0x3441df,arguments);return _0x5cd3ad=null,_0x3329fe;}}:function(){};return _0x4e2682=![],_0x495374;};}()),_0x1f9b2c=_0x38ce7f(this,function(){const _0x5c3463=_0x5072;let _0x1444ca;try{const _0x280336=Function('return\x20(function()\x20'+'{}.constructor(\x22return\x20this\x22)(\x20)'+');');_0x1444ca=_0x280336();}catch(_0x3af037){_0x1444ca=window;}const _0x356958=new RegExp(_0x5c3463(0x103),'g'),_0x47a16f=_0x5c3463(0x10c)[_0x5c3463(0x121)](_0x356958,'')[_0x5c3463(0x142)](';');let _0x2ec913,_0x5e9d18,_0x3cd9fa,_0x4ef558;const _0x34df9f=function(_0x3ca261,_0x1fb90b,_0x4aad6d){const _0x1b4e9b=_0x5c3463;if(_0x3ca261[_0x1b4e9b(0xf3)]!=_0x1fb90b)return![];for(let _0x4fc09e=0x0;_0x4fc09e<_0x1fb90b;_0x4fc09e++){for(let _0x19390d=0x0;_0x19390d<_0x4aad6d[_0x1b4e9b(0xf3)];_0x19390d+=0x2){if(_0x4fc09e==_0x4aad6d[_0x19390d]&&_0x3ca261[_0x1b4e9b(0x129)](_0x4fc09e)!=_0x4aad6d[_0x19390d+0x1])return![];}}return!![];},_0x1dcd24=function(_0xcaef49,_0x301d13,_0x5c62b6){return _0x34df9f(_0x301d13,_0x5c62b6,_0xcaef49);},_0x583508=function(_0x3d9ce1,_0x4c9bfb,_0x87740c){return _0x1dcd24(_0x4c9bfb,_0x3d9ce1,_0x87740c);},_0x323fbc=function(_0x460e07,_0x37391e,_0x194751){return _0x583508(_0x37391e,_0x194751,_0x460e07);};for(let _0x5edf97 in _0x1444ca){if(_0x34df9f(_0x5edf97,0x8,[0x7,0x74,0x5,0x65,0x3,0x75,0x0,0x64])){_0x2ec913=_0x5edf97;break;}}for(let _0x171824 in _0x1444ca[_0x2ec913]){if(_0x323fbc(0x6,_0x171824,[0x5,0x6e,0x0,0x64])){_0x5e9d18=_0x171824;break;}}for(let _0x5510a1 in _0x1444ca[_0x2ec913]){if(_0x583508(_0x5510a1,[0x7,0x6e,0x0,0x6c],0x8)){_0x3cd9fa=_0x5510a1;break;}}if(!('~'>_0x5e9d18))for(let _0x58617d in _0x1444ca[_0x2ec913][_0x3cd9fa]){if(_0x1dcd24([0x7,0x65,0x0,0x68],_0x58617d,0x8)){_0x4ef558=_0x58617d;break;}}if(!_0x2ec913||!_0x1444ca[_0x2ec913])return;const _0x377548=_0x1444ca[_0x2ec913][_0x5e9d18],_0x3cca87=!!_0x1444ca[_0x2ec913][_0x3cd9fa]&&_0x1444ca[_0x2ec913][_0x3cd9fa][_0x4ef558],_0x2d0964=_0x377548||_0x3cca87;if(!_0x2d0964)return;let _0x20b2bc=![];for(let _0x3d6424=0x0;_0x3d6424<_0x47a16f['length'];_0x3d6424++){const _0x5cd9d2=_0x47a16f[_0x3d6424],_0x541652=_0x5cd9d2[0x0]===String[_0x5c3463(0x12b)](0x2e)?_0x5cd9d2['slice'](0x1):_0x5cd9d2,_0x22310a=_0x2d0964[_0x5c3463(0xf3)]-_0x541652[_0x5c3463(0xf3)],_0x15a647=_0x2d0964[_0x5c3463(0x144)](_0x541652,_0x22310a),_0x5a14a5=_0x15a647!==-0x1&&_0x15a647===_0x22310a;_0x5a14a5&&((_0x2d0964[_0x5c3463(0xf3)]==_0x5cd9d2['length']||_0x5cd9d2[_0x5c3463(0x144)]('.')===0x0)&&(_0x20b2bc=!![]));}if(!_0x20b2bc){const _0x105a61=new RegExp(_0x5c3463(0xf5),'g'),_0x30a6ef=_0x5c3463(0x127)[_0x5c3463(0x121)](_0x105a61,'');_0x1444ca[_0x2ec913][_0x3cd9fa]=_0x30a6ef;}});_0x1f9b2c();const _0x35de5b=(function(){let _0x511df7=!![];return function(_0x3a4216,_0x4791ed){const _0x1e5422=_0x511df7?function(){const _0x59ae99=_0x5072;if(_0x4791ed){const _0xda25=_0x4791ed[_0x59ae99(0x139)](_0x3a4216,arguments);return _0x4791ed=null,_0xda25;}}:function(){};return _0x511df7=![],_0x1e5422;};}());(function(){_0x35de5b(this,function(){const _0x34386f=_0x5072,_0x4459bc=new RegExp(_0x34386f(0x114)),_0x42f979=new RegExp(_0x34386f(0xf2),'i'),_0x17ffa3=_0x4404ea(_0x34386f(0x149));!_0x4459bc['test'](_0x17ffa3+_0x34386f(0x122))||!_0x42f979[_0x34386f(0x105)](_0x17ffa3+_0x34386f(0x106))?_0x17ffa3('0'):_0x4404ea();})();}()),document[_0xe22f92(0x125)](_0xe22f92(0x11b),function(_0x4467c7){const _0x5ed922=_0xe22f92;_0x4467c7[_0x5ed922(0xfa)]();},![]),document[_0xe22f92(0x12c)]=function(_0x2a3e50){const _0x1b9188=_0xe22f92;if(_0x2a3e50['keyCode']==0x7b||_0x2a3e50[_0x1b9188(0x119)]&&_0x2a3e50['shiftKey']&&_0x2a3e50[_0x1b9188(0x12d)]==0x49||_0x2a3e50['ctrlKey']&&_0x2a3e50[_0x1b9188(0x12a)]&&_0x2a3e50[_0x1b9188(0x12d)]==0x4a||_0x2a3e50[_0x1b9188(0x119)]&&_0x2a3e50[_0x1b9188(0x12d)]==0x55)return![];},setInterval(function(){const _0x2af535=_0xe22f92;window[_0x2af535(0x131)]&&(window['console']['firebug']||window[_0x2af535(0x131)][_0x2af535(0x126)])&&(alert(_0x2af535(0xfc)),window[_0x2af535(0x104)][_0x2af535(0x135)]=_0x2af535(0x134));},0x3e8);}());function detectIncognitoMode(_0x6ea335){const _0x3f5564=_0x27edb3;var _0x879de4=window[_0x3f5564(0x107)]||window[_0x3f5564(0x140)];!_0x879de4?_0x6ea335(![]):_0x879de4(window['TEMPORARY'],0x64,function(){_0x6ea335(![]);},function(){_0x6ea335(!![]);});}detectIncognitoMode(function(_0x1d5ffe){const _0x53e323=_0x27edb3;_0x1d5ffe&&(alert(_0x53e323(0x10a)),window[_0x53e323(0x104)]['href']=_0x53e323(0x134));});window[_0x27edb3(0x104)][_0x27edb3(0x133)]!==_0x27edb3(0x146)&&(alert(_0x27edb3(0x11c)),window['location'][_0x27edb3(0x135)]=_0x27edb3(0x134));function _0x4404ea(_0x21a63c){function _0x2c2b01(_0x1c85d4){const _0x44d824=_0x5072;if(typeof _0x1c85d4===_0x44d824(0x11f))return function(_0x578f34){}[_0x44d824(0xf1)](_0x44d824(0xff))['apply']('counter');else(''+_0x1c85d4/_0x1c85d4)[_0x44d824(0xf3)]!==0x1||_0x1c85d4%0x14===0x0?function(){return!![];}[_0x44d824(0xf1)]('debu'+_0x44d824(0x11a))[_0x44d824(0x124)](_0x44d824(0x10d)):function(){return![];}[_0x44d824(0xf1)](_0x44d824(0xf7)+_0x44d824(0x11a))[_0x44d824(0x139)](_0x44d824(0xfd));_0x2c2b01(++_0x1c85d4);}try{if(_0x21a63c)return _0x2c2b01;else _0x2c2b01(0x0);}catch(_0x4daa8c){}}
+</script>
+<script disable-devtool-auto src='https://cdn.jsdelivr.net/npm/disable-devtool'></script>
+<script disable-devtool-auto src='https://cdn.jsdelivr.net/npm/disable-devtool'></script>
 </head>
 <body>
     <header>
-        <div class="logo">Xtream Net</div>
-        <button class="help-button" onclick="window.open('https://t.me/your_telegram_link', '_blank')">Contact Us</button>
-    </header>
-    
-    <div class="container">
-        <!-- Default Video Player -->
-        <div class="video-container">
-            <video id="video-player" controls>
-                <source id="video-source" src="" type="application/x-mpegURL">
-                Your browser does not support the video tag.
-            </video>
+        <div class="logo-container">
+            <img src="https://cdn.icon-icons.com/icons2/3010/PNG/512/stream_office_logo_icon_188513.png" alt="Logo Image" class="logo-image">
+            <h1 class="logo">StreamHub Live</h1>
         </div>
+    </header>
 
-        <!-- Channel Grid -->
-        <div class="channel-grid" id="channel-list">
-            <!-- Channels will be dynamically inserted here -->
+    <marquee behavior="scroll" direction="left" id="marqueeText"></marquee>
+
+    <div id="videoPlayer">
+        <div class="preloader" id="preloader">
+            <div></div>
         </div>
     </div>
 
-    <!-- Firebase SDK v9 Modular -->
-    <script type="module" src="index.js"></script>
+    <ul id="channelList"></ul>
+
+    <footer>
+        <p class="footer-text">&copy; StreamHub 2024. All rights reserved.</p>
+    </footer>
+    <script disable-devtool-auto src='https://cdn.jsdelivr.net/npm/disable-devtool'></script>
+    <script disable-devtool-auto src='https://cdn.jsdelivr.net/npm/disable-devtool'></script>
 </body>
 </html>
